@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import YazıListesi from './components/YaziListesi'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import Yazi from './components/Yazi';
+import YaziEkle from './components/YaziEkle';
+import YaziDuzenle from './components/YaziDuzenle';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <div className="main-wrapper">
+        <div className="ui raised very padded text container segment">
+          <Route path="/" exact component={YazıListesi} />
+          <Route path="/posts" exact component={YazıListesi} />
+          <Route path="/posts/:id" exact component={Yazi} />
+          <Route path="/yaziekle" component={YaziEkle} />
+          <Route path="/posts/:id/edit" component={YaziDuzenle} />
+        </div>
+      </div>
+    </Router>
+  )
 }
 
 export default App;
+
+

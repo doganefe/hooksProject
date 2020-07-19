@@ -1,0 +1,5 @@
+//side effects//
+
+data fetching
+connection outside
+dom manipulation
