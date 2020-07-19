@@ -19,24 +19,25 @@ const YorumListesi = (props) => {
 
 
   const handleSubmit = (id, icerik, gercekId) => {
-
     let newYorumlar = [...yorumlar]
     newYorumlar[id].isVisible = !newYorumlar[id].isVisible
     setYorumlar(newYorumlar)
     setYorumMetni(icerik)
-
-    console.log(yorumlar)
-
   }
 
-  const handleDelete = (id, post_id) => {
+  const handleDelete = (_,id, post_id) => {
+
+    let yorumlarFake = [...yorumlar];
+    yorumlarFake.splice(yorumlarFake[_],1)
+    setYorumlar(yorumlarFake);
     axios
       .delete(`posts/${post_id}/comments/${id}`)
       .then(resp => {
         console.log(resp.data)
-        window.location.reload(false)
       })
       .catch(err => console.log(err))
+      .then()
+
   }
 
   const handleSave = (id, post_id, display_name, yorumId) => {
@@ -47,6 +48,7 @@ const YorumListesi = (props) => {
 
     let yorumlarFake = [...yorumlar];
     Object.assign(yorumlarFake.find(b => b.id === id), { body: yorumMetni });
+    console.log("fake yorumlar1 : ",yorumlarFake)
     setYorumlar(yorumlarFake);
 
     let newState = [...yorumlar]
@@ -71,7 +73,7 @@ const YorumListesi = (props) => {
               <div className="metadata"><div>{yorum.created_at}</div></div>
               <div className="text">{yorum.body}</div>
               <div className="actions">
-                <span onClick={() => handleDelete(yorum.id, yorum.post_id)}>Delete <i className="delete icon"></i></span>
+                <span onClick={() => handleDelete(_,yorum.id, yorum.post_id)}>Delete <i className="delete icon"></i></span>
                 <span onClick={() => handleSubmit(_, yorum.body, yorum.id)}>Edit<i className="edit icon"></i></span>
               </div>
             </div>
